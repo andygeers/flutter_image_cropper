@@ -83,7 +83,11 @@
       
       [self setupUiCustomizedOptions:call.arguments forViewController:cropViewController];
 
-      [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:cropViewController animated:YES completion:nil];
+      UIViewController* srcViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
+      if (srcViewController.presentedViewController != nil) {
+          srcViewController = srcViewController.presentedViewController;
+      }
+      [srcViewController presentViewController:cropViewController animated:YES completion:nil];
   } else {
       result(FlutterMethodNotImplemented);
   }
